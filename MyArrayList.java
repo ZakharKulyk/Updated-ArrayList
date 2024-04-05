@@ -20,22 +20,22 @@ public class MyArrayList<T> {
     }
 
     public void add(T value) {
-        if (this.size == elements.length) {
+        if (this.size == this.elements.length) {
             resize();
         }
         this.elements[size] = value;
-        size++;
+        this.size++;
 
     }
 
     public T remove(int index) {
         T temp = null;
-        if (index >= 0 && index < size) {
-            temp = elements[index];
-            for (int i = index; i < size - 1; i++) {
-                elements[i] = elements[i + 1];
+        if (index >= 0 && index < this.size) {
+            temp = this.elements[index];
+            for (int i = index; i < this.size - 1; i++) {
+                this.elements[i] = this.elements[i + 1];
             }
-            size--;
+            this.size--;
         }
         return temp;
     }
@@ -66,7 +66,7 @@ public class MyArrayList<T> {
 
     @Override
     public String toString() {
-        return Arrays.toString(Arrays.copyOf(elements, size));
+        return Arrays.toString(Arrays.copyOf(this.elements, this.size));
     }
 
 }
