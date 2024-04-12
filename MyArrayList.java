@@ -5,39 +5,39 @@ import java.util.Arrays;
 public class MyArrayList<T> {
     private T[] elements;
     private int size;
-    private final int DEFAULT_SIZE = 10;
+
 
     public MyArrayList() {
-        this.elements = (T[]) new Object[DEFAULT_SIZE];
+        this.elements = (T[]) new Object[0];
     }
 
-    public T[] getElements() {
-        return this.elements;
-    }
-
-    public void setElements(T[] elements) {
-        this.elements = elements;
-    }
 
     public void add(T value) {
-        if (this.size == this.elements.length) {
-            resize();
-        }
-        this.elements[size] = value;
-        this.size++;
+        int len = this.elements.length;
+        this.elements = Arrays.copyOf(this.elements, len + 1);
+        this.elements[len] = value;
 
     }
 
     public T remove(int index) {
-        T temp = null;
-        if (index >= 0 && index < this.size) {
-            temp = this.elements[index];
-            for (int i = index; i < this.size - 1; i++) {
-                this.elements[i] = this.elements[i + 1];
-            }
-            this.size--;
+        if (index >= this.elements.length) {
+            throw new ArrayIndexOutOfBoundsException();
         }
-        return temp;
+        T[] tempArr = (T[]) new Object[this.elements.length - 1];
+        T tempValue = null;
+
+        for (int i = 0, j = 0; i < this.elements.length; i++) {
+            if (i == index) {
+
+                tempValue = this.elements[index];
+                continue;
+            }
+            tempArr[j++] = this.elements[i];
+
+        }
+        this.elements = Arrays.copyOf(tempArr, tempArr.length);
+
+        return tempValue;
     }
 
     public T get(int index) {
@@ -51,13 +51,11 @@ public class MyArrayList<T> {
     }
 
     public void clear() {
-        Arrays.setAll(this.elements, i -> 0);
-        Arrays.setAll(this.elements, i -> null);
-        this.size = 0;
+        this.elements = (T[]) new Object[0];
     }
 
     public int size() {
-        return this.size;
+        return this.elements.length;
     }
 
     public void resize() {
@@ -66,7 +64,8 @@ public class MyArrayList<T> {
 
     @Override
     public String toString() {
-        return Arrays.toString(Arrays.copyOf(this.elements, this.size));
+        return Arrays.toString(Arrays.copyOf(this.elements, this.elements.length));
     }
 
 }
+
