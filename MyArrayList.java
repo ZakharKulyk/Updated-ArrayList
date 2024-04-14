@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 public class MyArrayList<T> {
     private T[] elements;
-    private int size;
 
 
     public MyArrayList() {
@@ -26,13 +25,14 @@ public class MyArrayList<T> {
         T[] tempArr = (T[]) new Object[this.elements.length - 1];
         T tempValue = null;
 
-        for (int i = 0, j = 0; i < this.elements.length; i++) {
+        int indexForNewArr = 0;
+        for (int i = 0; i < this.elements.length; i++) {
             if (i == index) {
 
                 tempValue = this.elements[index];
                 continue;
             }
-            tempArr[j++] = this.elements[i];
+            tempArr[indexForNewArr++] = this.elements[i];
 
         }
         this.elements = Arrays.copyOf(tempArr, tempArr.length);
@@ -41,11 +41,10 @@ public class MyArrayList<T> {
     }
 
     public T get(int index) {
-        if (index >= 0 && index < size) {
+        if (index >= 0 && index < this.elements.length) {
             return this.elements[index];
         } else {
-            IndexOutOfBoundsException indexOutOfBoundsException = new IndexOutOfBoundsException();
-            throw indexOutOfBoundsException;
+            throw new IndexOutOfBoundsException();
         }
 
     }
@@ -68,4 +67,3 @@ public class MyArrayList<T> {
     }
 
 }
-
