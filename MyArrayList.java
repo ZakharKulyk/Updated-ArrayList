@@ -27,10 +27,10 @@ public class MyArrayList<T> {
     }
 
     public T remove(int index) {
-        if (index >= this.iterationIndex) {
+        if (index >= this.iterationIndex|| index<0) {
             throw new ArrayIndexOutOfBoundsException();
         }
-        T[] tempArr = (T[]) new Object[this.iterationIndex-1];
+        T[] tempArr = (T[]) new Object[this.iterationIndex];
         T tempValue = null;
 
         int indexForNewArr = 0;
