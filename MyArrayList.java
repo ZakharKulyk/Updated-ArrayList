@@ -30,7 +30,7 @@ public class MyArrayList<T> {
         if (index >= this.iterationIndex) {
             throw new ArrayIndexOutOfBoundsException();
         }
-        T[] tempArr = (T[]) new Object[this.elements.length - 1];
+        T[] tempArr = (T[]) new Object[this.iterationIndex-1];
         T tempValue = null;
 
         int indexForNewArr = 0;
